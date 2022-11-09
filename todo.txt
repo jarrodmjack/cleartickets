@@ -1,0 +1,1 @@
+add ability to close a ticket and change status to closed
