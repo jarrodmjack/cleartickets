@@ -6,6 +6,7 @@ const nextConfig = {
 
 module.exports = {
   // nextConfig,
+  distDir: 'build',
   async rewrites() {
     return [
         {
