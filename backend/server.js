@@ -38,9 +38,9 @@ app.use('/api/issues', issueRoutes)
 // )
 
  
-app.use(express.static(path.join(__dirname, '../frontend/out/index.html')))
+app.use(express.static(path.join('../frontend/out/index.html')))
 app.get("*", (req, res) =>
   res.sendFile(
-    path.resolve(__dirname, "../", 'frontend', 'out', 'index.html')
+    path.resolve("../", 'frontend', 'out', 'index.html')
   )
 )
