@@ -30,10 +30,10 @@ app.use((req, res, next) => {
 app.use('/api/issues', issueRoutes)
 
 
-app.use(express.static(path.join(__dirname, '../frontend/next')))
+app.use(express.static(path.join(__dirname, '../frontend/build')))
 app.get("*", (req, res) =>
   res.sendFile(
-    path.resolve(__dirname, "../", 'frontend', 'build', 'index.html')
+    path.resolve(__dirname, "../", 'frontend', 'build')
   )
 )
 
