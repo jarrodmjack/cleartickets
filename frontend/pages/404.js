@@ -6,4 +6,4 @@ const fourOhFour = () => {
   )
 }
 
-export default 404
+export default fourOhFour
