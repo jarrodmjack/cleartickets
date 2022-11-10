@@ -38,10 +38,10 @@ app.use('/api/issues', issueRoutes)
 // )
 
  
-app.use(express.static(path.join("../frontend/out")));
+app.use(express.static(path.join(__dirname, "../frontend/out")));
 
   app.get("*", (req, res) =>
     res.sendFile(
-      path.resolve("index.html")
+      path.resolve(__dirname, "../", "frontend", "out", "index.html")
     )
   );
