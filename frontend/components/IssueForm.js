@@ -4,15 +4,15 @@ import { useState } from 'react'
 
 
 
-const IssueForm = ({issues, handleAddIssue}) => {
+const IssueForm = ({ issues, handleAddIssue }) => {
     const [issueSubject, setIssueSubject] = useState('')
     const [issueDescription, setIssueDescription] = useState('')
     const [issueSeverity, setIssueSeverity] = useState('')
-    const [issueAssignedTo, setIssueAssignedTo] = useState('')
+    const [issueFromUser, setIssueFromUser] = useState('')
 
     const handleIssueSubmit = async (e) => {
         e.preventDefault()
-        const issue = { issueSubject, issueDescription, issueSeverity, issueAssignedTo }
+        const issue = { issueSubject, issueDescription, issueSeverity, issueFromUser }
         const response = await fetch('/api/issues/create', {
             method: "POST",
             body: JSON.stringify(issue),
@@ -25,7 +25,7 @@ const IssueForm = ({issues, handleAddIssue}) => {
         setIssueSubject('')
         setIssueDescription('')
         setIssueSeverity('')
-        setIssueAssignedTo('')
+        setIssueFromUser('')
         handleAddIssue()
     }
 
@@ -73,14 +73,14 @@ const IssueForm = ({issues, handleAddIssue}) => {
                     </select>
                 </div>
                 <div className="flex flex-col gap-4">
-                    <label className="font-bold text-2xl" htmlFor='issueAssignedToInput'>Assigned To</label>
+                    <label className="font-bold text-2xl" htmlFor='issueFromUserInput'>Enter Name</label>
                     <input
                         required
-                        onChange={(e) => setIssueAssignedTo(e.target.value)}
-                        value={issueAssignedTo}
-                        id="issueAssignedToInput"
+                        onChange={(e) => setIssueFromUser(e.target.value)}
+                        value={issueFromUser}
+                        id="issueFromUserInput"
                         type="text"
-                        placeholder="Assigned To..."
+                        placeholder="User name..."
                         className="input input-bordered w-full"
                     />
                 </div>

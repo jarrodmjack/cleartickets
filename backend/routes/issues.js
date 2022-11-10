@@ -4,6 +4,7 @@ const router = express.Router()
 const {
     createIssue,
     getIssues,
+    closeIssue,
     deleteIssue,
 } = require('../controllers/issuesController')
 
@@ -12,6 +13,7 @@ const {
 router.get('/', getIssues)
 router.post('/create', createIssue)
 router.delete('/:id', deleteIssue)
+router.put('/:id', closeIssue)
 
 
 module.exports = router

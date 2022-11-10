@@ -15,7 +15,7 @@ const issueSchema = new Schema({
         type: String,
         required: true
     },
-    issueAssignedTo: {
+    issueFromUser: {
         type: String,
         required: true
     },

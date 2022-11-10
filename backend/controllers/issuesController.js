@@ -2,18 +2,40 @@
 const Issue = require('../models/issueModel')
 
 const getIssues = async (req, res) => {
-    const issues = await Issue.find()
-    res.status(200).json(issues)
+    try{
+        const issues = await Issue.find()
+        res.status(200).json(issues)
+    } catch(err){
+        res.status(500).json({message: 'Could not get issues'})
+    }
+ 
 }
 
 const createIssue = async (req, res) => {
-    let { issueSubject, issueDescription, issueSeverity, issueAssignedTo } = req.body
-    if (!issueSeverity) {
-        issueSeverity = 'Low'
+    try {
+        let { issueSubject, issueDescription, issueSeverity, issueFromUser } = req.body
+        if (!issueSeverity) {
+            issueSeverity = 'Low'
+        }
+        const issue = await Issue.create({ issueSubject, issueDescription, issueSeverity, issueFromUser, status: 'Open' })
+        res.status(200).json({ message: 'Issue Created' })
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({message: 'Could not create issue, please try again'})
     }
-    // let issueStatus = 'Open'
-    const issue = await Issue.create({ issueSubject, issueDescription, issueSeverity, issueAssignedTo, status: 'Open' })
-    res.status(200).json({ message: 'Issue Created' })
+
+}
+
+const closeIssue = async (req, res) => {
+    try {
+        const issueId = req.params.id
+        await Issue.findByIdAndUpdate(issueId, { status: 'Closed' })
+        const issues = await Issue.find()
+        res.status(200).json(issues)
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ err: 'Failed to close ticket' })
+    }
 }
 
 const deleteIssue = async (req, res) => {
@@ -21,7 +43,7 @@ const deleteIssue = async (req, res) => {
     try {
         await Issue.findByIdAndDelete(issueId)
         console.log('success')
-        res.status(200).json({ msg: 'issue deleted' })
+        res.status(200).json({ msg: 'Issue deleted' })
     } catch (err) {
         console.error(err)
         res.status(500).json({ msg: 'Could not delete issue' })
@@ -29,4 +51,4 @@ const deleteIssue = async (req, res) => {
 }
 
 
-module.exports = { createIssue, getIssues, deleteIssue }
+module.exports = { createIssue, getIssues, closeIssue, deleteIssue }

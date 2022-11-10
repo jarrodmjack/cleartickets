@@ -26,8 +26,18 @@ const Home = () => {
     setIssues(issues.filter(issue => issue._id !== issueId))
   }
   
-  const handleCloseIssue = (issueId) => {
-    console.log('issue closed')
+
+
+  const handleCloseIssue = async (issueId) => {
+      console.log(issueId)
+      const res = await fetch(`/api/issues/${issueId}`, {
+        method: 'PUT',
+        body: issueId,
+      })
+      const data = await res.json()
+      setIssues(data)
+    // let updatedIssues = issues.map((issue, i) => issue)
+    // setIssues()
     // function will take in an id from the click event
     // change that ticket status to "closed"
     // modify that issue in database 
@@ -47,7 +57,7 @@ const Home = () => {
     <div className='container mx-auto'>
       <h1 className="text-3xl my-10">Submit a ticket here</h1>
       <IssueForm handleAddIssue={handleAddIssue} issues={issues} setIssues={setIssues}/>
-      <IssueList handleDeleteIssue={handleDeleteIssue} issues={issues} />
+      <IssueList handleDeleteIssue={handleDeleteIssue} handleCloseIssue={handleCloseIssue} issues={issues} />
     </div>
   )
 }

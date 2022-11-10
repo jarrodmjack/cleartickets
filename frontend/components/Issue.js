@@ -2,7 +2,7 @@ import React from 'react'
 import { FaRegClock } from 'react-icons/fa'
 import { FaUserTie } from 'react-icons/fa'
 
-const Issue = ({ issue, handleDeleteIssue }) => {
+const Issue = ({ issue, handleDeleteIssue, handleCloseIssue }) => {
   return (
     <div className='bg-slate-100 rounded-lg text-black flex flex-col p-4 gap-2 items-start'>
       <p>Issue ID: {issue._id}</p>
@@ -18,12 +18,13 @@ const Issue = ({ issue, handleDeleteIssue }) => {
         <div className='flex items-center gap-1'>
           <FaUserTie />
           <span>
-            {issue.issueAssignedTo}
+            {issue.issueFromUser}
           </span>
         </div>
       </div>
       <div className='flex gap-2'>
         <button
+          onClick={() => handleCloseIssue(issue._id)}
           className='btn bg-amber-300 text-white'>
           Close
         </button>
